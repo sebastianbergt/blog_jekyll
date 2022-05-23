@@ -1,0 +1,23 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"yzhang.markdown-all-in-one",
+				"eamodio.gitlens"
+			]
+		}
+	},
+	"forwardPorts": [
+		6080
+	],
+	"portsAttributes": {
+		"6080": {
+			"label": "Desktop access (password: vscode)",
+			"onAutoForward": "silent"
+		}
+	}
+}
