@@ -14,6 +14,8 @@ Otherwise jekyll serves empty index pages...
 
 [Here is a list of supported syntax highlighters in jekyll.](https://www.fabriziomusacchio.com/blog/2021-08-11-Syntax_Highlighting_in_Jekyll/)
 
+Look at [my source, my source is amazing](https://github.com/sebastianbergt/blog_jekyll)
+
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
