@@ -2,7 +2,7 @@
 layout: post
 title:  "Policy Based Design"
 date:   2022-05-23 13:20:00 +0000
-categories: jekyll update
+categories: cpp design_pattern
 ---
 
 The "O" in the [SOLID principles](https://medium.com/mindorks/solid-principles-explained-with-examples-79d1ce114ace) refers to the "open-closed principle".

@@ -2,7 +2,7 @@
 layout: post
 title:  "How to use smart pointers?"
 date:   2022-05-23 10:16:48 +0000
-categories: modern cpp smart_pointers
+categories: modern cpp smart_pointers basics
 ---
 Just typed up this small example of using smart pointers in [Compiler Explorer](https://godbolt.org/z/MT937PdWc)
 

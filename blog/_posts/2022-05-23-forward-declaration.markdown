@@ -2,7 +2,7 @@
 layout: post
 title:  "Forward declaration"
 date:   2022-05-23 10:20:00 +0000
-categories: jekyll update
+categories: cpp basics
 ---
 Helpful technique to keep member variables private.
 Find the code editable on [Compiler Explorer](https://godbolt.org/z/1roePvY9b)
