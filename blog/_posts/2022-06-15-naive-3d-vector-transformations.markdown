@@ -124,3 +124,5 @@ int main() {
 {% endhighlight %}
 
 Find the code editable on [Compiler Explorer](https://godbolt.org/z/z6xbrcner)
+
+Found help regarding matrix multiplication with loops [here](https://se.mathworks.com/matlabcentral/answers/154803-how-to-multiply-matrices-using-for-loops)
