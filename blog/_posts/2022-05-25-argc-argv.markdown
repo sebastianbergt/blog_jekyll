@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Modern command line arguments handling."
+date:   2022-05-25 16:34:00 +0000
+categories: cpp std container string
+---
+
+Simple call to get from argc and argv to a vector of strings.
+
+{% highlight c++ %}
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main(int argc, const char* argv[])
+{
+  const auto args = std::vector<std::string>{argv, argv + argc};
+
+  for(const auto& arg: args) {
+      std::cout << arg << "\n";
+  }
+}
+{% endhighlight %}
+
+Find the code editable on [Compiler Explorer](https://godbolt.org/z/65vjodvvY)

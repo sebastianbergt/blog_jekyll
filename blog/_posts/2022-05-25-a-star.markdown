@@ -1,0 +1,142 @@
+---
+layout: post
+title:  "A Star Implementation"
+date:   2022-05-25 08:34:00 +0000
+categories: cpp algorithm
+---
+
+This could use some more polish, but seems to work.
+Also it is not yet efficient, but rather my first working version.
+
+{% highlight c++ %}
+#include <algorithm>
+#include <cmath>
+#include <functional>
+#include <iostream>
+#include <limits>
+#include <list>
+#include <sstream>
+#include <vector>
+
+struct Point {
+    std::size_t row;
+    std::size_t col;
+
+    bool operator==(const Point& p) const {
+        return row == p.row && col == p.col;
+    }
+};
+
+using PointList = std::list<Point>;
+
+template <typename Cell, Cell default_value>
+class Grid {  // is row major
+   public:
+    using Columns = std::vector<Cell>;
+    using Rows = std::vector<Columns>;
+
+    Grid(const std::size_t col_size, const std::size_t row_size)
+        : col_size_{col_size},
+          row_size_{row_size},
+          cells_{row_size, Columns(col_size, default_value)} {}
+
+    Cell& at(const std::size_t col, const std::size_t row) {
+        return cells_.at(row).at(col);
+    }
+
+    Cell& at(const Point& point) { return cells_.at(point.row).at(point.col); }
+
+    PointList neighbors(const Point& point) const {
+        PointList neighbors{};
+
+        auto row_start{(point.row == 0 ? 1 : point.row) - 1};
+        auto col_start{(point.col == 0 ? 1 : point.col) - 1};
+
+        for (auto row{row_start}; row < point.row + 2; row++) {
+            for (auto col{col_start}; col < point.col + 2; col++) {
+                if (row == point.row && col == point.col) {
+                    continue;
+                }
+
+                if (row > 0 && row < row_size_ && col > 0 && col < col_size_) {
+                    neighbors.emplace_back(Point{row, col});
+                }
+            }
+        }
+        return neighbors;
+    }
+
+    std::string str() const {
+        std::stringstream ss;
+        for (const auto& row : cells_) {
+            for (const auto& col : row) {
+                ss << col;
+            }
+            ss << "\n";
+        }
+        return ss.str();
+    }
+
+   private:
+    std::size_t col_size_;
+    std::size_t row_size_;
+    Rows cells_;
+};
+
+float manhattanDistance(const Point& p1, const Point& p2) {
+    const float row_distance = p2.row - p1.row;
+    const float col_distance = p2.col - p1.col;
+
+    return std::abs(row_distance) + std::abs(col_distance);
+}
+
+template <typename Grid>
+PointList findPath(const Grid& grid, const Point& start, const Point& goal) {
+    PointList path;
+    float closest_distance{std::numeric_limits<float>::max()};
+    PointList frontier{start};
+    PointList processed;
+
+    while (!frontier.empty()) {
+        const auto current_point = frontier.front();
+        frontier.pop_front();
+        // check if we already processed it
+        const auto result =
+            std::find(processed.begin(), processed.end(), current_point);
+        if (result != processed.end()) {
+            continue;
+        }
+
+        if (current_point == goal) {
+            path.push_back(current_point);
+            break;
+        }
+
+        const auto distance_from_goal = manhattanDistance(current_point, goal);
+        if (distance_from_goal < closest_distance) {
+            closest_distance = distance_from_goal;
+            path.push_back(current_point);
+            processed.push_front(current_point);
+        }
+
+        auto neighbors = grid.neighbors(current_point);
+        frontier.splice(frontier.end(), neighbors);
+    }
+
+    return path;
+}
+
+int main() {
+    using IntGrid = Grid<int, 0>;
+    IntGrid grid{10, 10};
+    auto path = findPath<IntGrid>(grid, Point{2, 2}, Point{7, 9});
+    for (const auto& p : path) { // mark the path
+        grid.at(p) = 1;
+    }
+
+    std::cout << grid.str() << "\n";
+    return 0;
+}
+{% endhighlight %}
+
+Find the code editable on [Compiler Explorer](https://godbolt.org/z/35E6GvToM)

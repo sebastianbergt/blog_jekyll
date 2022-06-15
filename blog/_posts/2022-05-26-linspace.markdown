@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "Linspace"
+date:   2022-05-26 15:29:00 +0000
+categories: cpp std container
+---
+
+Ever missed this helpful function from python in C++?
+Here it is for a vector of arbitrary value types.
+
+ToDo: Check the value for being a basic type...
+Maybe I'll take the time to make the vector an arbitrary STL container later.
+
+{% highlight c++ %}
+#include <algorithm>   // std::generate
+#include <iostream>    // std::cout
+#include <vector>      // std::vector
+
+template <typename value_type>
+std::vector<value_type> linspace(const value_type start, const value_type stop,
+                                 const std::size_t num, const bool end_point = true) {
+    
+    const value_type step = (stop - start) / (end_point ? num : num + 1);
+    std::vector<value_type> v(num);
+
+    std::generate(v.begin(), v.end(), [n = start, step]() mutable {
+        n += step;
+        return n;
+    });
+
+    return v;
+}
+
+int main() {
+    const auto result = linspace(0.0F, 1.0F, 3);
+    for(const auto& val: result) {
+        std::cout << val << "\n";
+    }
+}
+{% endhighlight %}
+
+Find the code editable on [Compiler Explorer](https://godbolt.org/z/dqsdY3e15)
