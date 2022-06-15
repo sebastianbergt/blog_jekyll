@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Naive 3D Vector transformations"
-date:   2022-06-15 15:29:00 +0000
+date:   2022-06-15 12:29:00 +0000
 categories: cpp std matrix vector transformation
 ---
 
